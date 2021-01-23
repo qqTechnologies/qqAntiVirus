@@ -1,0 +1,35 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'java'
+}
+
+group 'com.qqtechnologies'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.json:json:20200518'
+}
+jar {
+manifest {
+    attributes(
+            'Manifest-Version': '1.0',
+            'Main-Class': 'com.qqtechnologies.antivirus.Main'
+    )
+}
+}
+shadowJar {
+    dependencies {
+        include(dependency('org.json:json:20200518'))
+
+    }
+    exclude 'dummyThing'
+    exclude 'LICENSE.txt'
+    classifier = 'release'
+}
+test {
+    useJUnitPlatform()
+}
